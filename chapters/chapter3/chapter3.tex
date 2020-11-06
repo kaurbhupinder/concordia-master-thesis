@@ -290,7 +290,8 @@ per image and a median of 321.
 Moreover, a significant fraction of detected vulnerabilities are
 of high severity
 (\href{https://www.first.org/cvss/specification-document}{CVSS} score
->=7.0) and a few of them are of critical severity (CVSS >= 9.0)
+\(<=\)
+7.0) and a few of them are of critical severity (CVSS \(>=\) 9.0)
 (Fig~\ref{fig:anchore}). Remote
 attackers could possibly exploit these vulnerabilities to execute
 arbitrary code in the container, by crafting responses to specific network
@@ -501,9 +502,9 @@ For a given release, the status can be any one of the following:
                 is not known, and hence evaluation is needed.
 
 \noindent\textbf{not-affected:} The package, while related to the
-                CVE in some way, is not affected by the issue. Notes should
+		CVE in some way, is not affected by the issue. The \(<\)notes\(>\) should
                 provide detailed information, if needed. For instance, if the given
-                status is "not-affected (1.14.6-1.1)" then this indicates that this specific
+		status is \texttt{not-affected (1.14.6-1.1)} then this indicates that this specific
                 package version is not affected.
 
 \noindent\textbf{needed:} The package is vulnerable to the
@@ -514,26 +515,26 @@ For a given release, the status can be any one of the following:
 
 \noindent\textbf{ignored:} The package, while related to the
                 CVE in some way, is being ignored for some reason. The
-                <notes> should provide that reason. For instance, if status looks like
-                "ignored (reached end-of-life)", this means that the given Ubuntu release already reached
+		\(<\)notes\(>\) should provide that reason. For instance, if status looks like
+		\texttt{ignored (reached end-of-life)}, this means that the given Ubuntu release already reached
                 end-of-life, so this CVE is ignored by Ubuntu. However, if there
                 is extended security support for this release then this
                 CVE will be handled in ESM release.
 
 \noindent\textbf{pending:} The package is vulnerable and
                   has been fixed but an update has not been yet uploaded or
-                  published. The <version> is given to indicate the particular
+		  published. The \(<\)version\(>\) is given to indicate the particular
                   version where the fix has been done.
 
 \noindent\textbf{deferred:} The package is vulnerable, but
-                   its fix has been deferred for some reason. The <notes>
+		   its fix has been deferred for some reason. The \(<\)notes\(>\)
                    should provide further details. If a date is mentioned, e.g.
-                   "deferred (2015-02-02)", the given date specifies the date when
+		   \texttt{deferred (2015-02-02)}, the given date specifies the date when
                    the CVE was deferred.
 
 \noindent\textbf{released:} The package was vulnerable, but
-                an update has been already uploaded and published, e.g. "released (1.2.3)",
-                <version> indicates the first version where the fix was applied.
+		an update has been already uploaded and published, e.g. \texttt{released (1.2.3)},
+		\(<\)version\(>\) indicates the first version where the fix was applied.
 
 \noindent\textbf{released-esm:} The package was vulnerable and
                 an update has been already uploaded and published. However,
