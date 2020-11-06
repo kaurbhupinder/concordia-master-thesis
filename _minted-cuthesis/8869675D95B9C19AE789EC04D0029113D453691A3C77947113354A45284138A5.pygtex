@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+  \PYGZdl{} docker\PYGZhy{}compose \PYG{n+nb}{exec} api anchore\PYGZhy{}cli image add IMAGENAME:TAG
+  \PYGZdl{} docker\PYGZhy{}compose \PYG{n+nb}{exec} api anchore\PYGZhy{}cli image vuln IMAGENAME:TAG all
+\end{Verbatim}

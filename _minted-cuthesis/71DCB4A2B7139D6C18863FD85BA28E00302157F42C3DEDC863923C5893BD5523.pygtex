@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYGZdl{} curl https://docs.anchore.com/current/docs/quickstart/docker\PYGZhy{}compose.yaml
+  \PYGZdl{} docker\PYGZhy{}compose up \PYGZhy{}d
+\end{Verbatim}

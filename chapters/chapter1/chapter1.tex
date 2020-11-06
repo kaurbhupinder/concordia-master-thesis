@@ -1,3 +1,144 @@
 \chapter{Introduction}
-\section{Introduction-Section}
-Sample Text \cite{Sample}
+Containers are very lightweight, flexible, and more resource-efficient than
+virtual machines. They provide an operating system (OS) level virtualization,
+which removes the overhead of having an extra OS layer. However, containers
+tightly integrate with the host due to the sharing of the kernel, which raises
+security concerns. In this chapter, we provide a brief introduction of containers,
+mainly discussing two popular containerization techniques Docker and Singularity.
+
+\section{Containers}
+OS-level virtualization initially started in 1979 when Chroot was introduced.
+Chroot is a Unix system call, which changes the root directory
+of a process and its children processes. A chrooted process cannot access files
+outside the designated directory.
+As the time passed, this virtualization got evolved and took different forms of
+FreeBSD jails, Linux VServer project, and Solaris containers. However, in 2008,
+with the introduction of Linux containers (LXC) OS-level virtualization reached
+to an another level of popularity. LXC gained advantage over
+other Linux-based projects due to the integration of virtualization features into
+the upstream Linux kernel, which removed the need of applying patches to the
+Linux kernel and recompilation~\cite{reshetova2014security}. 
+LXC relies on Linux kernel’s control groups (cgroups)
+and namespaces. Cgroups control the usage of system resources (memory, CPU,
+network, etc) among a group of processes. Namespaces define what a process
+can see by providing an isolated view of the operating system. For example,
+PID namespace isolate processes running in a container~\cite{bernstein2014containers}.
+
+\subsection{Docker}
+Docker was introduced in 2013 and has gained popularity since then. Docker
+is built on top of LXC. It automates application deployment, in addition to
+providing isolated environment. Docker allows software engineers to develop an
+application only once, on one system, and then use it on other systems without
+much effort. With the help of Docker, developers pack the application with
+all its dependencies, libraries, and tools, which can be run on any Linux server
+later. Docker containers share boot file-system and kernel with the host, which
+raises security concerns. Another issue is that Docker is not supported by
+traditional high-performance computing (HPC) resources. This is mainly due to the
+default configuration of Docker, which runs containers as root. Consequently, it
+becomes hard for system administrators to keep a record of which user is doing
+what~\cite{Containers2017, anderson2015docker}.
+
+\subsubsection{Docker Daemon}
+Docker engine is known as Docker daemon. It is a service that runs on the
+host operating system and is responsible for managing all Docker containers.
+It also allocates the host’s resources to Docker containers. Like LXC, Docker
+daemon also uses \textit{cgroups} and \textit{namespaces} of Linux, and hence only support
+Linux operating system. Docker daemon requires root access to operate, and
+every container run by Docker is spawned as a child of root-owned Docker 
+daemon. Therefore, users can gain escalated privileges by coercing Docker daemon,
+which creates serious security risks in shared environments. As a consequence,
+Docker is not supported in multi-user environments.
+
+\subsubsection{Docker Images}
+A Docker image is a package which contains an application along with all 
+required dependencies and libraries. All the steps of creating a particular image
+can be saved in a Docker file. Using Dockerfile, there are two ways to create
+a Docker image. The first is to use an existing Docker image as a base image
+and then build a new image from that one, by making changes in the filesystem,
+which is saved as a new layer of the Docker image. The second way is to build
+a new Docker image from scratch. Docker images are organized as a series of
+\textit{layers} which are stacked on top of each other. Each layer consists of a filesystem
+diff that is introduced due to the changes made on the layer below it. All layers
+of the Docker image are identified by unique \textit{layerIDs}. All these layers stacked
+together gives a unified and complete view of a Docker image. These layers are
+compressed into a single image and can be pushed to the Docker Hub.
+
+\subsubsection{Docker Hub}
+Docker Hub is a repository used by Docker to keep all Docker
+images in one central place. Docker images on Docker Hub can be
+private or public. Docker Hub also proposes automated builds and
+webhooks. Docker webhook is an HTTP call-back triggered by a
+\textit{push} on external code repository. Automated builds,
+also known as autobuilds, automatically build Docker images
+from the source code located on external code repository (e.g. GitHub,
+BitBucket, etc.) and then host them automatically on Docker Hub.
+During the setup of Docker automated builds, a list of branches
+and tags, that the user wants to build into Docker images is created.
+When source code is pushed to a code repository (like GitHub) for
+these listed image tags, \textit{push} uses Docker webhook to build a new
+Docker image~\cite{dockerdoc_2019}. The created image is then
+automatically pushed to Docker Hub. After the automated build,
+Docker sends HTTP request to a reachable Docker host on the
+Internet to notify it about the availability of new image,
+which pulls the built image and restarts container on the
+new image through Docker webhooks~\cite{martin2018docker,dockerdoc2__2019}.
+
+\subsection{Singularity}
+
+Singularity was introduced in 2016. It offers mobility of compute by
+facilitating portable environments through a single image file, which
+makes Singularity containers different from Docker's layered containers.
+Once Singularity image is created, it is hashed by using SHA256 hashing.
+Hence, it cannot be changed once it is created, consequently, it can be
+used for reproducing the results of scientific experiments. Singularity
+was introduced with the main goal of providing support for multi-user
+environment \cite{Singularity}, where Docker failed to provide such
+support. Main features provided by Singularity are mobility of compute
+and reproducibility.
+
+Mobility of compute is defined as creating and maintaining a workflow
+on a local machine that can be easily ported on other hosts, Linux
+distributions, and/or cloud service providers. To achieve this,
+Singularity packs everything that is required for the application
+to run in a distributable image. Then that image can be copied,
+archived, and shared. Moreover, Singularity containers are easily
+portable across different versions of the C library and different
+kernel implementations \cite{kurtzer2017singularity}.
+
+Same features of Singularity, which are used for mobility of compute,
+facilitate reproducibility as well. Hash of the image is also stored
+along with the image \cite{kurtzer2017singularity}.
+
+
+\subsubsection{Singularity Images}
+
+Singularity takes snapshot, locks, and archives the developed application,
+which is known as Singularity image \cite{kurtzer2016singularity}.
+Due to image hashing, Singularity does not contain image layers, unlike
+Docker images. While publishing experimental results, authors can also
+publish Singularity image along with its hash, which allow other
+researchers to verify results.
+
+
+\subsubsection{Singularity Hub}
+
+Singularity Hub is a central repository provided by Singularity to keep
+Singularity images and their hash. It is designed to facilitate
+reproducible research and publications. Singularity Hub can be easily
+cited in the publications and hence other researchers can easily
+replicate conducted experiments. Singularity Hub connects with
+GitHub for automatic builds of Singularity images from the source
+code present at GitHub.
+
+\section{Thesis Outline}
+This thesis consists of four main parts divided into chapters.
+Chapter~\ref{chapter2} provides literature survey on the security of containers. 
+In accordance with that, it provides a list of security requirements that 
+every OS-level virtualization technique should fulfill, and hence based on 
+these requirements it investigates security of containers. This chapter 
+also points out strong features and security weaknesses of containers.
+Chapter~\ref{chapter3} presents various experiments done to analyze security 
+of Docker and Singularity images used in two containerization frameworks 
+used in neuroscience. Additionally, it 
+provides results of these experiments.
+Finally, Chapter~\ref{chapter4} concludes this thesis and highlights the future work.

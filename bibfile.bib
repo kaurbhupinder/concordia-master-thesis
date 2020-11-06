@@ -1,11 +1,921 @@
-@article{Sample,
-	author = {First Author and Second Author},
-	title = {The Title},
-	volume = {00},
-	year = {20XX},
-	doi = {DOI://0.0.0},
-	publisher = {Publisher Name},
-	issn = {issn-no},
-	URL = {https://url.com/url},
-	journal = {Journal Name}
+@article{martin2018docker,
+  title={Docker ecosystem--vulnerability analysis},
+  author={Martin, Antony and Raponi, Simone and Combe, Th{\'e}o and Di Pietro, Roberto},
+  journal={Computer Communications},
+  volume={122},
+  pages={30--43},
+  year={2018},
+  publisher={Elsevier}
+}
+
+@article{combe2016docker,
+  title={To Docker or not to Docker: A security perspective},
+  author={Combe, Theo and Martin, Antony and Di Pietro, Roberto},
+  journal={IEEE Cloud Computing},
+  volume={3},
+  number={5},
+  pages={54--62},
+  year={2016},
+  publisher={IEEE}
+}
+
+@article{bui2015analysis,
+  title={Analysis of docker security},
+  author={Bui, Thanh},
+  journal={arXiv preprint arXiv:1501.02967},
+  year={2015}
+}
+
+@article{smalley2001implementing,
+  title={Implementing SELinux as a Linux security module},
+  author={Smalley, Stephen and Vance, Chris and Salamon, Wayne},
+  journal={NAI Labs Report},
+  volume={1},
+  number={43},
+  pages={139},
+  year={2001}
+}
+
+
+@article{anderson2015docker,
+  title={Docker [software engineering]},
+  author={Anderson, Charles},
+  journal={IEEE Software},
+  volume={32},
+  number={3},
+  pages={102--c3},
+  year={2015},
+  publisher={IEEE}
+}
+
+@article{kurtzer2017singularity,
+  title={Singularity: Scientific containers for mobility of compute},
+  author={Kurtzer, Gregory M and Sochat, Vanessa and Bauer, Michael W},
+  journal={PloS one},
+  volume={12},
+  number={5},
+  pages={e0177459},
+  year={2017},
+  publisher={Public Library of Science}
+}
+
+@misc{kurtzer2016singularity,
+  title={Singularity},
+  author={Kurtzer, Gregory M and others},
+  year={2016},
+  publisher={Jul}
+}
+@inproceedings{Shu2017,
+ author = {Shu, Rui and Gu, Xiaohui and Enck, William},
+ title = {A Study of Security Vulnerabilities on Docker Hub},
+ booktitle = {Proceedings of the Seventh ACM on Conference on Data and Application Security and Privacy},
+ series = {CODASPY '17},
+ year = {2017},
+ isbn = {978-1-4503-4523-1},
+ location = {Scottsdale, Arizona, USA},
+ pages = {269--280},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/3029806.3029832},
+ doi = {10.1145/3029806.3029832},
+ acmid = {3029832},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {docker images, security vulnerabilities, vulnerability propagation},
+}
+
+
+@inproceedings{xu2018mining,
+  title={Mining container image repositories for software configuration and beyond},
+  author={Xu, Tianyin and Marinov, Darko},
+  booktitle={Proceedings of the 40th International Conference on Software Engineering: New Ideas and Emerging Results},
+  pages={49--52},
+  year={2018},
+  organization={ACM}
+}
+
+@inproceedings{xavier2013performance,
+  title={Performance evaluation of container-based virtualization for high performance computing environments},
+  author={Xavier, Miguel G and Neves, Marcelo V and Rossi, Fabio D and Ferreto, Tiago C and Lange, Timoteo and De Rose, Cesar AF},
+  booktitle={Parallel, Distributed and Network-Based Processing (PDP), 2013 21st Euromicro International Conference on},
+  pages={233--240},
+  year={2013},
+  organization={IEEE}
+}
+
+@inproceedings{ramachandran2005detecting,
+  title={Detecting ARP spoofing: An active technique},
+  author={Ramachandran, Vivek and Nandi, Sukumar},
+  booktitle={International Conference on Information Systems Security},
+  pages={239--250},
+  year={2005},
+  organization={Springer}
+}
+
+@inproceedings{gantikow2016providing,
+  title={Providing security in container-based hpc runtime environments},
+  author={Gantikow, Holger and Reich, Christoph and Knahl, Martin and Clarke, Nathan},
+  booktitle={International Conference on High Performance Computing},
+  pages={685--695},
+  year={2016},
+  organization={Springer}
+}
+
+
+@incollection{gummaraju2015over,
+  title={Over 30\% of official images in docker hub contain high priority security vulnerabilities},
+  author={Gummaraju, Jayanth and Desikan, Tarun and Turner, Yoshio},
+  booktitle={Technical Report},
+  year={2015},
+  publisher={BanyanOps}
+}
+
+
+
+@article{sherif2014cbrain,
+  title={CBRAIN: a web-based, distributed computing platform for collaborative neuroimaging research},
+  author={Sherif, Tarek and Rioux, Pierre and Rousseau, Marc-Etienne and Kassis, Nicolas and Beck, Natacha and Adalat, Reza and Das, Samir and Glatard, Tristan and Evans, Alan C},
+  journal={Frontiers in neuroinformatics},
+  volume={8},
+  pages={54},
+  year={2014},
+  publisher={Frontiers}
+}
+
+@misc{HPC,
+  title = {Why use High Performance Computing?},
+  howpublished = {\url{https://epcced.github.io/hpc-intro/00-why-hpc/}},
+  note = {Accessed: 2019-01-05}
+}
+
+@misc{Singularity,
+  title = {Singularity : a "Docker" for HPC environments},
+  howpublished = {\url{https://dev.to/grokcode/singularity--a-docker-for-hpc-environments-i6p}},
+  note = {Accessed: 2019-01-07}
+}
+
+@misc{CBRAIN,
+  title = {CBRAIN as a platform for Open Science},
+  howpublished = {\url{http://mcin.ca/wp-content/uploads/2017/08/CBRAIN_Poster_Doyle_HBM_2017.pdf}},
+  note = {Accessed: 2019-01-10}
+}
+
+@misc{NetworkNamespace, 
+  title={Linux Network Namespaces}, 
+  howpublished={\url{http://www.opencloudblog.com/?p=42}}, 
+  journal={Open Cloud Blog}
+}
+
+
+@misc{Jails,
+  title = {Jails},
+  howpublished = {\url{https://www.freebsd.org/doc/handbook/jails.html}},
+  note = {Accessed: 2019-01-09}
+}
+
+@misc{dockerNetworkdoc, 
+title={Docker: Network Configuration}, 
+howpublished={\url{https://docs.docker.com/network/}}, 
+note = {Accessed: 2019-02-02}
+}
+
+@misc{walsh, 
+title={Are Docker containers really secure?}, 
+howpublished = {\url{https://opensource.com/business/14/7/docker-security-selinux?extIdCarryOver=true&sc_cid=701f2000001OH7EAAW}}, 
+journal={Opensource.com}, 
+author={Walsh, Daniel J},
+note = {Accessed: 2019-02-20}
+}
+
+@misc{reno_reno_2016, 
+title={Linux containers vs. VMs: A security comparison}, 
+url={https://www.infoworld.com/article/3071679/linux/linux-containers-vs-vms-a-security-comparison.html}, 
+journal={InfoWorld}, 
+publisher={InfoWorld}, 
+author={Reno, Jim and Reno, Jim}, 
+note = {Accessed: 2019-01-22}
+}
+
+@misc{whitelistController,
+title={Device Whitelist Controller}, 
+howpublished = {\url{https://www.kernel.org/doc/Documentation/cgroup-v1/devices.txt}}, 
+journal={The Linux Kernel API},
+note = {Accessed: 2019-02-15}
+}
+
+@misc{us-cert, 
+title={Understanding of Denial-of-Service Attacks }, 
+howpublished={\url{https://www.us-cert.gov/ncas/tips/ST04-015}}, 
+journal={"Plan, Do, Check, Act" | US-CERT},
+note = {Accessed: 2019-02-24}
+}
+
+@misc{Containers2017,
+title = {containers: real adoption and use cases in 2017}, 
+howpublished = {\url{http://i.dell.com/sites/doccontent/business/solutions/whitepapers/en/Documents/Containers_Real_Adoption_2017_Dell_EMC_Forrester_Paper.pdf}},
+note = {Accessed: 2019-02-11}
+}
+
+@misc{dockerdoc_2019, 
+title={Set up Automated builds}, 
+howpublished = {\url{https://docs.docker.com/docker-hub/builds/}}, 
+note = {Accessed: 2019-02-25}
+}
+
+@misc{dockerdoc2__2019, 
+title={Docker Hub Webhooks}, 
+howpublished = {\url{https://docs.docker.com/docker-hub/webhooks/}}, 
+note = {Accessed: 2019-02-25}
+}
+
+@misc{man7, 
+title={Linux Capabilities},
+howpublished = {\url{http://man7.org/linux/man-pages/man7/capabilities.7.html}}, 
+journal={Linux manual page},
+note = {Accessed: 2019-02-26}
+}
+
+@misc{walsh2, 
+title={Bringing new security features to Docker}, 
+howpublished={\url{https://opensource.com/business/14/9/security-for-docker}}, 
+journal={Opensource.com}, 
+author={Walsh, Daniel J},
+note = {Accessed: 2019-03-04}
+}
+
+@misc{dockerdoc_2018, 
+title={Docker Security Scanning}, 
+howpublished = {\url{https://docs.docker.com/v17.12/docker-cloud/builds/image-scan/}}, 
+note = {Accessed: 2019-03-04}
+}
+
+@inproceedings{MongoDB2017,
+  title={A Review of MongoDB and Singularity Container Security in regards to HIPAA Regulations},
+  author={Mailewa Dissanayaka, Akalanka and Shetty, Roshan Ramprasad and Kothari, Samip and Mengel, Susan and Gittner, Lisa and Vadapalli, Ravi},
+  booktitle={Companion Proceedings of the10th International Conference on Utility and Cloud Computing},
+  pages={91--97},
+  year={2017},
+  organization={ACM}
+}
+
+@inproceedings{cappos2008look,
+  title={A look in the mirror: Attacks on package managers},
+  author={Cappos, Justin and Samuel, Justin and Baker, Scott and Hartman, John H},
+  booktitle={Proceedings of the 15th ACM conference on Computer and communications security},
+  pages={565--574},
+  year={2008},
+  organization={ACM}
+}
+
+@inproceedings{bacis2015dockerpolicymodules,
+  title={DockerPolicyModules: mandatory access control for docker containers},
+  author={Bacis, Enrico and Mutti, Simone and Capelli, Steven and Paraboschi, Stefano},
+  booktitle={Communications and Network Security (CNS), 2015 IEEE Conference on},
+  pages={749--750},
+  year={2015},
+  organization={IEEE}
+}
+
+@inproceedings{kamp2000jails,
+  title={Jails: Confining the omnipotent root},
+  author={Kamp, Poul-Henning and Watson, Robert NM},
+  booktitle={Proceedings of the 2nd International SANE Conference},
+  volume={43},
+  pages={116},
+  year={2000}
+}
+
+@article{hope2002using,
+  title={Using Jails in FreeBSD for fun and profit},
+  author={Hope, Paco},
+  journal={login: The Magazine of USENIX \& SAGE},
+  volume={27},
+  number={3},
+  year={2002}
+}
+@inproceedings{tucker2004solaris,
+  title={Solaris Zones: Operating System Support for Server Consolidation.},
+  author={Tucker, Andrew and Comay, David},
+  booktitle={Virtual Machine Research and Technology Symposium},
+  year={2004}
+}
+
+@inproceedings{des2005virtualization,
+  title={Virtualization of Linux based computers: the Linux-VServer project},
+  author={des Ligneris, Benoit},
+  booktitle={High Performance Computing Systems and Applications, 2005. HPCS 2005. 19th International Symposium on},
+  pages={340--346},
+  year={2005},
+  organization={IEEE}
+}
+
+@inproceedings{reshetova2014security,
+  title={Security of OS-level virtualization technologies},
+  author={Reshetova, Elena and Karhunen, Janne and Nyman, Thomas and Asokan, N},
+  booktitle={Nordic Conference on Secure IT Systems},
+  pages={77--93},
+  year={2014},
+  organization={Springer}
+}
+
+
+@inproceedings{soltesz2007container,
+  title={Container-based operating system virtualization: a scalable, high-performance alternative to hypervisors},
+  author={Soltesz, Stephen and P{\"o}tzl, Herbert and Fiuczynski, Marc E and Bavier, Andy and Peterson, Larry},
+  booktitle={ACM SIGOPS Operating Systems Review},
+  volume={41},
+  number={3},
+  pages={275--287},
+  year={2007},
+  organization={ACM}
+}
+
+@article{lageman2005solaris,
+  title={Solaris Containers — What They Are and How to Use Them},
+  author={Lageman, Menno and Solutions, Sun Client},
+  journal={Sun BluePrints OnLine},
+  pages={819--2679},
+  year={2005}
+}
+
+@article{bernstein2014containers,
+  title={Containers and cloud: From lxc to docker to kubernetes},
+  author={Bernstein, David},
+  journal={IEEE Cloud Computing},
+  volume={1},
+  number={3},
+  pages={81--84},
+  year={2014},
+  publisher={IEEE}
+}
+
+
+@incollection{mcfearin2011chroot,
+  title={Chroot jail},
+  author={McFearin, Lee D},
+  booktitle={Encyclopedia of Cryptography and Security},
+  pages={206--207},
+  year={2011},
+  publisher={Springer}
+}
+
+@book{lockhart2004network,
+  title={Network Security Hacks},
+  author={Lockhart, Andrew},
+  year={2004},
+  publisher={" O'Reilly Media, Inc."}
+}
+
+@mastersthesis{kabbe2017security,
+  title={Security analysis of Docker containers in a production environment},
+  author={Kabbe, Jon-Anders},
+  year={2017},
+  school={NTNU}
+}
+@inproceedings{gantikow2016providing,
+  title={Providing security in container-based hpc runtime environments},
+  author={Gantikow, Holger and Reich, Christoph and Knahl, Martin and Clarke, Nathan},
+  booktitle={International Conference on High Performance Computing},
+  pages={685--695},
+  year={2016},
+  organization={Springer}
+}
+
+@book{ye2008secure,
+  title={Secure computer and network systems: Modeling, analysis and design},
+  author={Ye, Nong},
+  year={2008},
+  publisher={John Wiley \& Sons}
+}
+
+
+@misc{hpc_2016, 
+title={Definitions}, 
+howpublished={\url{http://www.hpc4poland.pl/en/definitions/}}, 
+note = {Accessed: 2019-03-10}
+}
+
+@misc{cve1,
+title={Description of CVE-2016-5195},	
+howpublished={\url{https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-5195}}, 
+note = {Accessed: 2019-02-27}
+}
+
+@misc{cve2,
+title={Description of CVE-2014-6271},	
+howpublished={\url{https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271}}, 
+note = {Accessed: 2019-02-27}
+}
+
+@misc{cve3, 
+title={Description of CVE-2014-0160},	
+howpublished={\url{https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0160}}, 
+note = {Accessed: 2019-02-27}
+}
+
+@article{glatard2017boutiques,
+  title={Boutiques: a flexible framework for automated application integration in computing platforms},
+  author={Glatard, Tristan and Kiar, Gregory and Aumentado-Armstrong, Tristan and Beck, Natacha and Bellec, Pierre and Bernard, R{\'e}mi and Bonnet, Axel and Camarasu-Pop, Sorina and Cervenansky, Fr{\'e}d{\'e}ric and Das, Samir and others},
+  journal={arXiv preprint arXiv:1711.09713},
+  year={2017}
+}
+
+@misc{anchore, 
+title={Anchore Solutions}, 
+howpublished={\url{https://anchore.com/solutions/}}, 
+journal={Anchore},
+note = {Accessed: 2019-03-10}
+}
+
+
+@misc{anchore_2018, 
+title={Anchore Github}, 
+howpublished={\url{https://github.com/anchore/anchore}}, 
+note = {Accessed: 2019-03-10}
+}
+
+@misc{mcarthur_2019, 
+title={Docker-Security-Analysis}, 
+howpublished={\url{https://github.com/prince-chrismc/Docker-Security-Analysis#benchmark-time}}, 
+note = {Accessed: 2019-03-11}
+}
+
+@misc{vuls, 
+title={Vuls: VULnerability Scanner},
+howpublished={\url{https://hub.docker.com/r/vuls/vuls/}}, 
+note = {Accessed: 2019-03-13}
+}
+
+
+@misc{security_scanning, 
+title={Docker Security Scanning}, 
+howpublished={\url{https://docs.docker.com/v17.12/docker-cloud/builds/image-scan/}}, 
+note = {Accessed: 2019-03-13}
+}
+
+@misc{vuls2, 
+title={Vuls · Agentless Vulnerability Scanner for Linux/FreeBSD}, 
+howpublished={\url{https://vuls.io/}}, 
+note = {Accessed: 2019-03-13}
+}
+
+@misc{cve4, 
+title={CVE and NVD Relationship}, 
+howpublished={\url{https://cve.mitre.org/about/cve_and_nvd_relationship.html}}, 
+note = {Accessed: 2019-03-15}
+}
+
+@misc{coreos_2019, 
+title={coreos/clair}, 
+howpublished={\url{https://github.com/coreos/clair/}}, 
+note = {Accessed: 2019-03-16}
+}
+
+@misc{arminc_2019, 
+title={arminc/clair-scanner}, 
+howpublished={\url{https://github.com/arminc/clair-scanner}}, 
+note = {Accessed: 2019-03-16}
+}
+
+@misc{eliasgranderubio_2019, 
+title={eliasgranderubio/dagda}, 
+howpublished={\url{https://github.com/eliasgranderubio/dagda}}, 
+note = {Accessed: 2019-03-16}
+}
+
+@misc{compute_resources, 
+title={Research PortalAvailable Resources}, 
+howpublished={\url{https://www.computecanada.ca/research-portal/accessing-resources/available-resources/}}, 
+note = {Accessed: 2019-03-17}
+}
+
+@misc{burillo_2019, 
+title={29 Docker security tools compared}, 
+howpublished={\url{https://sysdig.com/blog/20-docker-security-tools/}}, 
+author={Burillo, Mateo}, 
+note = {Accessed: 2019-03-18}
+}
+
+@misc{wikipedia_2019, 
+title={Nmap}, 
+howpublished={\url{https://en.wikipedia.org/wiki/Nmap}}, 
+note = {Accessed: 2019-02-23}
+}
+@misc{dirtycow, 
+title={dirtycow/dirtycow.github.io}, 
+howpublished={\url{https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c}}, 
+note = {Accessed: 2019-02-22}
+}
+
+@misc{ssl-heartbleed, 
+title={SSL-Heartbleed NSE script},
+howpublished={\url{https://svn.nmap.org/nmap/scripts/ssl-heartbleed.nse}}, 
+note = {Accessed: 2019-02-23}
+}
+
+@misc{jared, 
+title={Mirror of Jared Stafford's ssltest.py (http://s3.jspenguin.org/ssltest.py)}, 
+howpublished={\url{https://gist.github.com/mapkyca/10125974}}, 
+note = {Accessed: 2019-02-23}
+}
+
+@misc{msf, 
+title={Using the MSFconsole Interface}, 
+howpublished={\url{https://www.offensive-security.com/metasploit-unleashed/msfconsole/}}, 
+note = {Accessed: 2019-02-23}
+}
+
+@misc{computecanada, 
+title={About Compute Canada}, 
+howpublished={\url{https://www.computecanada.ca/about/}}, 
+note = {Accessed: 2019-02-23}
+}
+
+@misc{derek49268379,
+title={Canadian Open Neuroscience Platform},	
+howpublished={\url{http://conp.ca/}}, 
+note = {Accessed: 2019-02-23}
+}
+@misc{neuro_2018, 
+title={The Neuro joins neuroscience data sharing partnership}, 
+howpublished={\url{https://www.mcgill.ca/neuro/channels/news/neuro-joins-neuroscience-data-sharing-partnership-285125}},
+note = {Accessed: 2019-03-06}
+}
+
+@misc{future-architect_2019, 
+title={Vuls}, 
+howpublished={\url{https://github.com/future-architect/vuls}}, 
+note = {Accessed: 2019-03-19}
+}
+
+@misc{anchore_database, 
+title={Anchore}, 
+howpublished={\url{https://anchore.freshdesk.com/support/solutions/articles/36000020579-feeds}}, 
+note = {Accessed: 2019-03-19}
+}
+
+@misc{shimel_2015, 
+title={ClusterHQ and DevOps.com survey show Containers poised for mass adoption}, 
+howpublished={\url{https://devops.com/clusterhq-and-devops-com-survey-show-containers-poised-for-mass-adoption/}}, 
+journal={DevOps.com}, 
+author={Shimel, Alan}, 
+year={2015}, month={Jun}
+}
+
+@misc{wiki_dirtycow, 
+title={Dirty COW}, 
+howpublished={\url{https://en.wikipedia.org/wiki/Dirty_COW}}, 
+note={Accessed: 2019-04-28}
+}
+
+@misc{anchore_2019, 
+title={anchore/anchore-engine}, 
+howpublished={\url{https://github.com/anchore/anchore-engine}}, 
+note={Accessed: 2019-05-02}
+}
+
+%%%%%%%%%%%% REPRONIM %%%%%%%%%%%%%%%%%%%
+@article{kennedy2019everything,
+  title={Everything matters: the repronim perspective on reproducible neuroimaging},
+  author={Kennedy, David N and Abraham, Sanu A and Bates, Julianna F and Ghosh, Satrajit S and Gillespie, Tom H and Goncalves, Mathias and Grethe, Jeffrey S and Halchenko, Yaroslav O and Hanke, Michael and Haselgrove, Christian and others},
+  journal={Frontiers in neuroinformatics},
+  volume={13},
+  pages={1},
+  year={2019},
+  publisher={Frontiers}
+}
+
+%%%%%%%%%%%%%%55555 BOUTIQUES %%%%%%%%%%%%%%%
+@article{glatard2015boutiques,
+  title={Boutiques: an application-sharing system based on Linux containers},
+  author={Glatard, Tristan and Da Silva, Rafael F and Boujelben, Nouha and Adalat, R and Beck, Natacha and Rioux, Pierre and Rousseau, Marc-Etienne and Deelman, Ewa and Evans, A},
+  journal={Neuroinformatics},
+  year={2015}
+}
+
+@article{glatard2018boutiques,
+  title={Boutiques: a flexible framework to integrate command-line applications in computing platforms},
+  author={Glatard, Tristan and Kiar, Gregory and Aumentado-Armstrong, Tristan and Beck, Natacha and Bellec, Pierre and Bernard, R{\'e}mi and Bonnet, Axel and Brown, Shawn T and Camarasu-Pop, Sorina and Cervenansky, Fr{\'e}d{\'e}ric and others},
+  journal={GigaScience},
+  volume={7},
+  number={5},
+  pages={giy016},
+  year={2018},
+  publisher={Oxford University Press}
+}
+
+%%%%%%%%%%%%% CBRAIN %%%%%%%%%%%%%%%%%
+@article{sherif2014cbrain,
+  title={CBRAIN: a web-based, distributed computing platform for collaborative neuroimaging research},
+  author={Sherif, Tarek and Rioux, Pierre and Rousseau, Marc-Etienne and Kassis, Nicolas and Beck, Natacha and Adalat, Reza and Das, Samir and Glatard, Tristan and Evans, Alan C},
+  journal={Frontiers in neuroinformatics},
+  volume={8},
+  pages={54},
+  year={2014},
+  publisher={Frontiers}
+}
+
+%%%%%%%% DOCKER %%%%%%%%%%%%%%%%%%
+
+@article{martin2018docker,
+  title={Docker ecosystem--vulnerability analysis},
+  author={Martin, Antony and Raponi, Simone and Combe, Th{\'e}o and Di Pietro, Roberto},
+  journal={Computer Communications},
+  volume={122},
+  pages={30--43},
+  year={2018},
+  publisher={Elsevier}
+}
+
+@inproceedings{zerouali2019conpan,
+  title={ConPan: a tool to analyze packages in software containers},
+  author={Zerouali, Ahmed and Cosentino, Valerio and Robles, Gregorio and Gonzalez-Barahona, Jesus M and Mens, Tom},
+  booktitle={Proceedings of the 16th International Conference on Mining Software Repositories},
+  pages={592--596},
+  year={2019},
+  organization={IEEE Press}
+}
+
+@mastersthesis{duarte2018security,
+  title={Security Assessment and Analysis in Docker Environments},
+  author={Duarte, Ana Filipa S{\^e}co},
+  year={2018}
+}
+
+@inproceedings{duarte2018empirical,
+  title={An Empirical Study of Docker Vulnerabilities and of Static Code Analysis Applicability},
+  author={Duarte, Ana and Antunes, Nuno},
+  booktitle={2018 Eighth Latin-American Symposium on Dependable Computing (LADC)},
+  pages={27--36},
+  year={2018},
+  organization={IEEE}
+}
+
+@article{sultan2019container,
+  title={Container Security: Issues, Challenges, and the Road Ahead},
+  author={Sultan, Sari and Ahmad, Imtiaz and Dimitriou, Tassos},
+  journal={IEEE Access},
+  volume={7},
+  pages={52976--52996},
+  year={2019},
+  publisher={IEEE}
+}
+
+@article{combe2016docker,
+  title={To Docker or not to Docker: A security perspective},
+  author={Combe, Theo and Martin, Antony and Di Pietro, Roberto},
+  journal={IEEE Cloud Computing},
+  volume={3},
+  number={5},
+  pages={54--62},
+  year={2016},
+  publisher={IEEE}
+}
+
+@article{bui2015analysis,
+  title={Analysis of docker security},
+  author={Bui, Thanh},
+  journal={arXiv preprint arXiv:1501.02967},
+  year={2015}
+}
+
+@inproceedings{Shu2017,
+ author = {Shu, Rui and Gu, Xiaohui and Enck, William},
+ title = {A Study of Security Vulnerabilities on {DockerHub}},
+ booktitle = {Proceedings of the Seventh ACM on Conference on Data and Application Security and Privacy},
+ series = {CODASPY '17},
+ year = {2017},
+ isbn = {978-1-4503-4523-1},
+ location = {Scottsdale, Arizona, USA},
+ pages = {269--280},
+ numpages = {12},
+ address = {New York, NY, USA},
+ keywords = {docker images, security vulnerabilities, vulnerability propagation},
+}
+
+@incollection{gummaraju2015over,
+  title={Over 30\% of official images in {DockerHub} contain high priority security vulnerabilities},
+  author={Gummaraju, Jayanth and Desikan, Tarun and Turner, Yoshio},
+  booktitle={Technical Report},
+  year={2015}
+}
+
+@article{bettini2015vulnerability,
+  title={Vulnerability exploitation in Docker container environments},
+  author={Bettini, A},
+  journal={FlawCheck, Black Hat Europe},
+  year={2015}
+}
+
+
+%%%%%%%%%%%%%%%%%% SINGULARITY %%%%%%%%%%%%%%%%%%%%%
+
+@article{kurtzer2017singularity,
+  title={Singularity: Scientific containers for mobility of compute},
+  author={Kurtzer, Gregory M and Sochat, Vanessa and Bauer, Michael W},
+  journal={PloS one},
+  volume={12},
+  number={5},
+  pages={e0177459},
+  year={2017},
+  publisher={Public Library of Science}
+}
+
+@article{sochat2017enhancing,
+  title={Enhancing reproducibility in scientific computing: Metrics and registry for Singularity containers},
+  author={Sochat, Vanessa V and Prybol, Cameron J and Kurtzer, Gregory M},
+  journal={PloS one},
+  volume={12},
+  number={11},
+  pages={e0188511},
+  year={2017},
+  publisher={Public Library of Science}
+}
+
+@misc{kurtzer2016singularity,
+  title={Singularity},
+  author={Kurtzer, Gregory M and others},
+  year={2016},
+  publisher={Jul}
+}
+
+@inproceedings{mailewa2017review,
+  title={A Review of MongoDB and Singularity Container Security in Regards to HIPAA Regulations},
+  author={Mailewa Dissanayaka, Akalanka and Shetty, Roshan Ramprasad and Kothari, Samip and Mengel, Susan and Gittner, Lisa and Vadapalli, Ravi},
+  booktitle={Companion Proceedings of the10th International Conference on Utility and Cloud Computing},
+  pages={91--97},
+  year={2017},
+  organization={ACM}
+}
+
+%%%%%%%%%%%%%%%% OTHERS %%%%%%%%%%%%%
+
+@inproceedings{xu2018mining,
+	  title={Mining container image repositories for software configuration and beyond},
+	    author={Xu, Tianyin and Marinov, Darko},
+	      booktitle={Proceedings of the 40th International Conference on Software Engineering: New Ideas and Emerging Results},
+	        pages={49--52},
+		  year={2018},
+		    organization={ACM}
+}
+
+@inproceedings{xavier2013performance,
+	  title={Performance evaluation of container-based virtualization for high performance computing environments},
+	    author={Xavier, Miguel G and Neves, Marcelo V and Rossi, Fabio D and Ferreto, Tiago C and Lange, Timoteo and De Rose, Cesar AF},
+	      booktitle={Parallel, Distributed and Network-Based Processing (PDP), 2013 21st Euromicro International Conference on},
+	        pages={233--240},
+		  year={2013},
+		    organization={IEEE}
+}
+
+@inproceedings{ramachandran2005detecting,
+	  title={Detecting ARP spoofing: An active technique},
+	    author={Ramachandran, Vivek and Nandi, Sukumar},
+	      booktitle={International Conference on Information Systems Security},
+	        pages={239--250},
+		  year={2005},
+		    organization={Springer}
+}
+
+@inproceedings{gantikow2016providing,
+	  title={Providing security in container-based {HPC} runtime environments},
+	    author={Gantikow, Holger and Reich, Christoph and Knahl, Martin and Clarke, Nathan},
+	      booktitle={International Conference on High Performance Computing},
+	        pages={685--695},
+		  year={2016}}
+
+@inproceedings{reshetova2014security,
+  title={Security of OS-level virtualization technologies},
+  author={Reshetova, Elena and Karhunen, Janne and Nyman, Thomas and Asokan, N},
+  booktitle={Nordic Conference on Secure IT Systems},
+  pages={77--93},
+  year={2014},
+  organization={Springer}
+}
+
+@article{das2016mni,
+  title={The MNI data-sharing and processing ecosystem},
+  author={Das, Samir and Glatard, Tristan and MacIntyre, Leigh C and Madjar, Cecile and Rogers, Christine and Rousseau, Marc-Etienne and Rioux, Pierre and MacFarlane, Dave and Mohades, Zia and Gnanasekaran, Rathi and others},
+  journal={NeuroImage},
+  volume={124},
+  pages={1188--1195},
+  year={2016},
+  publisher={Elsevier}
+}
+
+@article{gorgolewski2017bids,
+  title={BIDS apps: Improving ease of use, accessibility, and reproducibility of neuroimaging data analysis methods},
+  author={Gorgolewski, Krzysztof J and Alfaro-Almagro, Fidel and Auer, Tibor and Bellec, Pierre and Capot{\u{a}}, Mihai and Chakravarty, M Mallar and Churchill, Nathan W and Cohen, Alexander Li and Craddock, R Cameron and Devenyi, Gabriel A and others},
+  journal={PLoS computational biology},
+  volume={13},
+  number={3},
+  pages={e1005209},
+  year={2017},
+  publisher={Public Library of Science}
+}
+
+@misc{coreos_2019,
+title={coreos/clair},
+howpublished={\url{https://github.com/coreos/clair/}},
+note = {Accessed: 2019-03-16}
+}
+
+%%%%%%%REPROZIP%%%%%%%%
+@inproceedings{ChirigatiRSF16,
+  title = {ReproZip: Computational Reproducibility With Ease},
+  author = {Chirigati, Fernando and Rampin, R{\'e}mi and Shasha, Dennis and Freire, Juliana},
+  year = {2016},
+  isbn = {978-1-4503-3531-7},
+  location = {San Francisco, California, USA},
+  doi = {10.1145/2882903.2899401},
+  booktitle = {Proceedings of the 2016 International Conference on Management of Data},
+  series = {SIGMOD '16},
+  pages = {2085--2088},
+  numpages = {4},
+  publisher = {ACM},
+  keywords = {computational reproducibility, provenance, reprozip},
+}
+
+@Article{Hunter:2007,
+  Author    = {Hunter, J. D.},
+  Title     = {Matplotlib: A 2D graphics environment},
+  Journal   = {Computing in Science \& Engineering},
+  Volume    = {9},
+  Number    = {3},
+  Pages     = {90--95},
+  abstract  = {Matplotlib is a 2D graphics package used for Python for
+  application development, interactive scripting, and publication-quality
+  image generation across user interfaces and operating systems.},
+  publisher = {IEEE COMPUTER SOC},
+  doi       = {10.1109/MCSE.2007.55},
+  year      = 2007
+}
+
+@article{rampin2016reprozip,
+  title={ReproZip: The Reproducibility Packer},
+  author={Rampin, R{\'e}mi and Chirigati, Fernando and Shasha, Dennis and Freire, Juliana and Steeves, Vicky},
+  journal={Journal of Open Source Software},
+  volume={1},
+  number={8},
+  pages={107},
+  year={2016}
+}
+
+@inproceedings{zerouali2019relation,
+  title={On the relation between outdated {Docker} containers, severity vulnerabilities, and bugs},
+  author={Zerouali, Ahmed and Mens, Tom and Robles, Gregorio and Gonzalez-Barahona, Jesus M},
+  booktitle={2019 IEEE 26th International Conference on Software Analysis, Evolution and Reengineering (SANER)},
+  pages={491--501},
+  year={2019},
+  organization={IEEE}
+}
+
+@misc{singularity19,
+title={Singularity},
+howpublished={\url{https://singularity.lbl.gov/}},
+note={Accessed: 2019-02-12}
+}
+
+@misc{neurodocker,
+title={ReproNim/neurodocker},
+howpublished={\url{https://github.com/ReproNim/neurodocker}},
+note={Accessed: 2019-07-12}
+}
+
+
+@misc{docker19,
+title={Docker Overview},
+howpublished={\url{https://docs.docker.com/get-started/overview/}},
+note={Accessed: 2019-02-12}
+}
+
+@article{glatard2015reproducibility,
+  title={Reproducibility of neuroimaging analyses across operating systems},
+  author={Glatard, Tristan and Lewis, Lindsay B and Ferreira da Silva, Rafael and Adalat, Reza and Beck, Natacha and Lepage, Claude and Rioux, Pierre and Rousseau, Marc-Etienne and Sherif, Tarek and Deelman, Ewa and others},
+  journal={Frontiers in neuroinformatics},
+  volume={9},
+  pages={12},
+  year={2015},
+  publisher={Frontiers}
+}
+
+@article{gronenschild2012effects,
+  title={The effects of FreeSurfer version, workstation type, and Macintosh operating system version on anatomical volume and cortical thickness measurements},
+  author={Gronenschild, Ed HBM and Habets, Petra and Jacobs, Heidi IL and Mengelers, Ron and Rozendaal, Nico and Van Os, Jim and Marcelis, Machteld},
+  journal={PloS one},
+  volume={7},
+  number={6},
+  pages={e38234},
+  year={2012},
+  publisher={Public Library of Science}
+}
+
+@article{van2014human,
+  title={Human neuroimaging as a “Big Data” science},
+  author={Van Horn, John Darrell and Toga, Arthur W},
+  journal={Brain imaging and behavior},
+  volume={8},
+  number={2},
+  pages={323--331},
+  year={2014},
+  publisher={Springer}
 }

@@ -1,4 +1,6 @@
 \documentclass[12pt]{report}
+\newcommand{\rom}[1]{\lowercase\expandafter{\romannumeral #1\relax}}
+\usepackage{xcolor}
 \include{config}
 \include{constants}
 
@@ -14,9 +16,10 @@
 %To inlcude new chapter add "\include{chapters/chapter-no/chapter-no.tex"
 \include{chapters/chapter1/chapter1}
 \include{chapters/chapter2/chapter2}
-
+\include{chapters/chapter3/chapter3}
+\include{chapters/chapter4/chapter4}
 %You can edit your citation style by changing the name in \bibliographystyle{plain} --> \bibliographystyle{new style name}
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 %Add the bibilography file name below
 \bibliography{bibfile}
 

@@ -1,4 +1,383 @@
-\chapter{Chapter 2}
-\section{Chapter 2 Section}
-\subsection{Chapter 2 Subsection}
-Subsection Test
+\chapter{Security Review of Containers}\label{chapter2}	
+In spite of the popularity of containers, there are various security
+concerns as well. Here, we focus our investigation on the security
+of Singularity and Docker containers because of three reasons.
+First, they are popular among containers.
+Second, security becomes a barrier in the adoption of containers in
+production. Third, both are already
+used in various environments, so it is easy to practically
+investigate their security. In this chapter, we study a set of security
+requirements, that each OS-level virtualization solution should provide.
+Additionally, this chapter investigates how these requirements are fulfilled
+by Singularity and Docker containers, and list their security implications.
+For this study, we categorize security into two broad categories: internal
+security provided by containers, and external security
+provided by the Linux operating system.
+
+\section{Container's Internal Security}
+
+We examine the security of containers based on the requirements given
+by Reshetova et al., 2014 \cite{reshetova2014security} for comparing
+the security of a number of OS-level virtualization techniques.
+According to this research, an OS-level virtualization technique should
+satisfy the following requirements: process isolation, filesystem isolation,
+device isolation, IPC isolation, network isolation and limiting
+of resources inside containers. Apart from that, in this section, we provide vulnerabilities
+that are added to containers by container images ~\cite{cappos2008look, gummaraju2015over}.
+
+\subsection{Process Isolation}
+
+The main goal of process isolation is to prevent one container process
+from seeing or interfering with another container process. In other words,
+it limits the permissions and visibility of a container process to
+processes running in other containers. Containers achieve this goal
+through the use of namespaces in the Linux kernel. For this purpose,
+Docker uses \textit{PID namespaces} which isolate a process with a
+particular process ID from the host and other containers. Provided
+that, it becomes difficult for an attacker to see processes running
+in other containers, hence harder to attack them \cite{bui2015analysis}.
+In contrast to Docker, the default configuration of Singularity does
+not isolate PID namespaces of containers from the host.
+The reason behind that is Singularity's main goal is to provide
+mobility of compute and reproducibility, and not full isolation.
+However, this configuration can be changed to separate the \textit{PID}
+namespaces either by using a command line or environment variable setting.
+
+\subsection{Filesystem Isolation}
+
+Filesystem isolation is required to prevent illegitimate access
+to filesystems of the host and containers. Docker uses
+\textit{filesystem namespaces}, also called \textit{mount namespaces},
+for achieving this goal. Filesystem namespaces hide filesystems of
+the host and containers from other containers. However, some of the
+kernel filesystems are not namespaced, so Docker containers mount
+them for operation. For example, \textit{/sys, /proc/sys,
+/proc/sysrq - trigger, /proc/irq, and /proc/bus} are
+not namespaced~\cite{walsh}.
+This causes security concerns as Docker containers are directly
+able to access host filesystems. Consequently, Docker provides
+two filesystem protection mechanisms. First, Docker gives
+read-only permissions to containers for these filesystems. Second,
+containers are not allowed to remount any filesystem within containers.
+Additionally, Docker offers a \textit{copy-on-write} filesystem mechanism,
+which allows containers to write to their specific filesystems and changes
+are not visible to other containers.
+Similarly, files in Singularity containers are also isolated using
+\textit{filesystem} namespaces.
+
+\subsection{Device Isolation}
+
+Applications and kernel access devices through special files
+known as device nodes. It is very crucial to limit the set
+of devices nodes that containers can access. This is primarily
+because an attacker can own the whole system by gaining access
+to some important device nodes such as /dev/mem, /dev/sd*,
+or /dev/tty. Docker uses the \textit{Device Whitelist Controller}
+\cite{whitelistController} feature of control groups to limit the
+set of devices that a Docker container can see and use.
+Additionally, Docker starts containers with \textit{nodev} which
+prevents the use of already created device nodes inside the image.
+Furthermore, Docker does not allow containers to create new device
+nodes. However, some of the important device nodes cannot be
+namespaced such as \textit{/dev/mem, /dev/sd*}, and kernel modules.
+Direct access to these device nodes by containers possess serious
+security concerns. Besides that, if a Docker container is executed
+in \textit{privileged} mode then it gets access to all devices.
+Conversely, in default configuration of Singularity, all host devices
+are visible inside the container because the user is same inside and
+outside the container.
+
+
+\subsection{Inter-Process Communication (IPC) Isolation}
+
+IPC is a set of objects through which processes communicate with
+each other, such as shared memory segments, semaphores, and message queues.
+IPC isolation is needed to prevent containers
+from accessing or modifying data belonging to other containers, which is
+transmitted through these objects. Docker utilizes \textit{IPC namespaces}
+to assign an IPC namespace to each container. Process in one IPC namespace
+cannot read or write IPC resources of another IPC namespace.
+The default configuration of Singularity does not provide IPC isolation.
+
+\subsection{Network Isolation}
+
+
+Isolation of container's network is very important to prevent
+network-based attacks such as address resolution protocol (ARP)
+spoofing and Man-in-the-Middle (MitM) Attack \cite{lockhart2004network}.
+ARP spoofing is an attack which associates the attacker's Media Access
+Control (MAC) address with the Internet Protocol (IP) address of another host.
+ARP is a stateless protocol, hence hosts save all ARP replies even if they had not
+sent any ARP request for it \cite{ramachandran2005detecting}, which becomes a
+source of attack. So, the host that has spoofed ARP response is not able to
+verify whether it belongs to legitimate host or attacker, and hence it starts
+sending packets at attacker's MAC address.
+In Singularity, by default, the container shares the network with the host.
+This is because Singularity tries to virtualize "as few as possible" namespaces.
+Whereas, Docker uses \textit{network} namespaces
+\cite{NetworkNamespace} to isolate the network of Docker containers.
+Therefore, each Docker container has its different IP address,
+IP routing tables, network devices, etc. Consequently, Docker containers
+interact through the network interfaces with each other as well as with
+the host \cite{dockerNetworkdoc}. On the contrary, all containers share
+the same network bridge, which makes Docker vulnerable to ARP spoofing attack.
+In addition to that, bridge of Docker network forwards all incoming packets
+without any kind of filtering, which makes it vulnerable to Mac flooding
+\cite{bui2015analysis}.
+In Docker, the network is used for two purposes : (\rom{1}) to control
+Docker daemon remotely, (\rom{2}) to distribute images, which
+include pulling and saving images on Docker Hub.
+
+\subsubsection{Docker Daemon Remote Control}
+
+Docker daemon is controlled remotely through a socket (which
+is by default a Unix socket but can be changed to TCP socket),
+so Docker commands can be performed from another host
+remotely \cite{combe2016docker}. By accessing this socket,
+an attacker can pull and run containers in privileged mode,
+hence getting root access to the host.
+
+\subsubsection{Vulnerable Image Distribution Process}
+
+Docker images are present in compressed format on Docker Hub.
+So, Docker daemon pulls, uncompresses, and then runs containers
+from these images. Here, Docker daemon can be related to the
+package manager and Docker Hub to the software repository.
+Hence, Docker daemon also has an attack surface similar
+to the package manager. Vulnerabilities include storing,
+processing potentially untrusted code in Docker images by
+Docker daemon. The source code can be tampered during transfer
+or at the source. If some part of the network is compromised,
+an attacker can replace an image with malicious image, and
+that image gets downloaded on the host. As the image is in
+a compressed format, the attacker can cleverly craft the
+image (i.e. all zeros). If so, it has the potential of
+filling whole storage on the host after decompression,
+hence causing
+denial-of-service (DoS) attack. Other possible attacks are
+code injection or replay attacks. Additionally, the malicious
+image can be uploaded to the Docker Hub by an adversary.
+That image can be downloaded by millions of users infecting
+millions of machines.
+
+For mitigation of these attacks, Docker introduced content
+trust which allows signing images before pushing to Docker
+Hub. However, this content trust can be disabled and thus disabling
+image signature check. Another issue is related to automated build and
+webhooks, where compromised GitHub
+account can lead to the execution of a malicious code. According
+to the experiment performed in \cite{martin2018docker} the
+malicious code was put in production in a very short time i.e within 5 minutes and
+30 seconds of commit on GitHub. The content trust provides
+an environment where a single entity is trusted but in this
+case, trust is divided among several external entities.
+
+
+\subsection{Limiting of Resources}
+
+A DoS attack occurs when intended users are not able to use
+the system or network resources \cite{us-cert}. To launch DoS,
+the attacker floods targeted host or network traffic with
+superfluous requests to overload systems. Consequently,
+the target crashes or its resources get exhausted,
+hence disrupting normal execution of the
+system. To solve this issue, both Docker and Singularity use \textit{cgroups}.
+Cgroups restrict the amount of resources (CPU, memory,
+and disk I/O) that are used by containers, thus not
+allowing one container to consume all resources.
+
+\subsection{Vulnerabilities in Container Images}
+
+There can be vulnerabilities present inside the image
+itself when it is downloaded from the image repository.
+According to~\cite{Shu2017} over
+30\% official Docker images had high-priority common vulnerabilities
+and exposures (CVE) identifiers (IDs) and around 64\% had high
+or medium level CVE vulnerabilities at the time of this work.
+This research work also
+states that Docker images with the \textit{latest} tag also had
+vulnerabilities. These vulnerabilities are due to outdated
+packages contained in images, which may be a consequence of
+the use of old base image or due to
+pulling of outdated code during build.
+
+Docker introduced Docker security scanning through which users
+can scan images to check whether they contain vulnerability or not.
+However, this scanning is limited to only private repositories and
+it is a paid service. The scan traverses all layers of the image and
+then identifies software packages in those layers. Further, it
+checks vulnerabilities in these software components by taking
+their Secure Hash Algorithms (SHAs) and then comparing against a
+standard list of CVEs. This scan can take up to 24 hours
+depending on image sizes. Additionally, this scanning technique
+does not detect malware, virus, or vulnerabilities which are not mentioned in the standard
+CVE database \cite{dockerdoc_2018}.
+
+\section{Security provided by Kernel}
+
+Out-of-the-box security provided by the Linux kernel, which secures the
+host from containers, is known as host hardening.
+Linux provides Linux capabilities and Linux Security Modules (LSM)
+to harden the security of the host system. Linux capabilities divide
+the privileges of superuser into pieces, and assign a subset of these
+capabilities to specific processes. Whereas, LSM provides a framework
+for Linux to support various security modules. Currently, three security
+modules are officially integrated with Linux kernel which includes SELinux,
+AppArmor, and Seccomp. Out of these three, only the first two are
+supported by Docker. Docker only integrates with Seccomp if LXC are used.
+Below, we provide the details of these host hardening techniques.
+
+\subsection{Linux Capabilities}
+
+According to the official documentation of Linux~\cite{man7},
+Unix systems traditionally categorized processes as \textit{privileged} processes and
+\textit{unprivileged} processes. Privileged processes are root users with
+zero user id (UID), whereas unprivileged users are normal users with nonzero
+UID. Privileged processes are exempted from permission check, whereas
+unprivileged processes are liable to full permission checks.
+Linux divides privileges of superuser into different pieces, known as
+capabilities, which can be independently enabled or disabled.
+As a result, Docker can disable some of the capabilities of containers,
+thus improving the security of the system. As Docker containers share the
+kernel with the host, most of their tasks are done by the host. As a
+consequence, disabling some of the capabilities in Docker containers do
+not affect their functionality. For example, \textit{CAP\_NET\_ADMIN}
+capability allows configuration of the network, which can be disabled in
+Docker containers because all network configurations are handled by
+Docker daemon. By default, most of Linux capabilities are disabled
+when Docker container is started in order to secure the host system
+from attackers \cite{walsh2}. Table \ref{tab:capabilities} lists some of the
+capabilities that are disabled in Docker containers.
+
+\begin{center}
+\tabulinesep=1.2mm
+\begin{tabu} to \textwidth { | X[l] | X[l] | }
+\hline
+ CAP\_SETPCAP & Modify process capabilities \\
+ \hline
+CAP\_SYS\_MODULE & Insert/Remove kernel modules \\
+ \hline
+CAP\_SYS\_RAWIO & Modify kernel memory \\
+ \hline
+CAP\_SYS\_PACCT & Configure process accounting \\
+ \hline
+CAP\_SYS\_NICE &  Modify priority of processes \\
+ \hline
+CAP\_SYS\_RESOURCE & Override resource limits \\
+ \hline
+CAP\_SYS\_TIME & Modify the system clock \\
+ \hline
+CAP\_SYS\_TTY\_CONF IG & Configure tty devices \\
+ \hline
+CAP\_AUDIT\_WRITE & Write the audit log \\
+ \hline
+CAP\_AUDIT\_CONTROL & Configure audit subsystem \\
+ \hline
+CAP\_MAC\_OVERRIDE & Ignore kernel MAC policy \\
+ \hline
+CAP\_MAC\_ADMIN & Configure MAC configuration \\
+ \hline
+CAP\_SYSLOG & Modify kernel printk behavior \\
+ \hline
+CAP\_NET\_ADMIN & Configure the network \\
+ \hline
+CAP\_SYS\_ADMIN & Catch all \\
+ \hline
+\end{tabu}
+\captionof{table}{Some disabled capabilities in Docker containers~\cite{walsh2}.}
+\label{tab:capabilities}
+\end{center}
+
+
+\subsection{Linux Security Modules}
+
+Below, we provide details of two LSMs that are currently
+supported by Docker.
+
+\subsubsection{SELinux}
+
+SELinux is security enhancement to the Linux system, which
+integrates Mandatory Access Control (MAC). MAC strongly separates
+all applications, which in turn decreases potential damage if an
+application is compromised. SELinux classifies active users or
+processes as subjects, and all system resources as objects.
+Everything in SELinux is controlled by labels
+\cite{smalley2001implementing}. System administrator writes
+SELinux policies, which control accesses of system objects
+by processes. These policies are of three types: Type
+Enforcement (TE), Multi-Category Security (MCS), and Multi-Level
+Security (MLS). Out of these three, Docker
+uses only the first two types of policies~\cite{bui2015analysis}. Using TE,
+Docker protects the host from containers,
+by forcing container processes to read/write content
+that has a specific label \cite{bui2015analysis}.
+MCS is used to protect containers from
+other containers. To achieve that, each container is
+assigned a unique MCS label. All the files that belong to a
+container are also labelled with the same MCS label.
+Therefore, kernel does not allow a container process to read/write to a file
+that have different MCS label. Hence isolating all containers.
+
+\subsubsection{AppArmor}
+
+Like SELinux, AppArmor is another MAC solution
+for enhancing security of Linux systems. It uses
+the concept of file system paths instead of labels.
+AppArmor mentions the file path in the binary of
+the application along with the allowed permissions
+on that file. Two modes are supported by AppArmor:
+enforcement mode and complain/learning mode~\cite{bui2015analysis}.
+Enforcement mode is used to enforce policies that are
+defined in the AppArmor profile, whereas complain/learning
+mode also allows violations of the profile policies.
+However, these violations are logged, and may be used later for
+developing new profiles. Docker provides an interface to systems
+that support AppArmor. This interface is used to load
+AppArmor profile for containers. Consequently, when
+containers are launched, a pre-defined AppArmor profile is
+loaded automatically, if administrator does not specify
+an AppArmor profile. These security profiles are loaded in
+enforcement mode by default, to make sure that the policies
+defined in the profile are enforced. Therefore, the
+important files of the host such as \textit{/sys/fs/cgroups/}
+and \textit{/sys/kernel/security/} remain protected from
+containers.
+
+
+\subsubsection{Limitations of LSMs}
+
+Security provided by these modules is limited due to
+the generic nature of profiles provided by these security
+modules \cite{martin2018docker}. For example, default
+SELinux profile assigns same domain to all Docker
+containers, which helps in protecting host from containers,
+but not containers from containers. Similarly, default
+AppArmor profile provide full access of network system and
+capabilities to Docker containers.
+To improve the security of the host, a potential solution is to write
+container-specific profiles.
+
+\section{Conclusion}
+
+In this chapter, we examine various security threats that
+containers are prone to. We focus our investigation on the
+security of Docker and Singularity containers because of their popularity.
+In that context, we study a list of security requirements that every OS-level
+virtualization should fulfill. Later, we investigate security of Docker and Singularity
+containers based on these requirements. We broadly categories security of
+containers into two types: internal security provided by containers, and
+external security provided by the Linux kernel.
+Internal security includes process isolation, device isolation, IPC
+isolation, network isolation, limiting of resources in containers, and
+vulnerabilities in images.
+We then highlight solutions
+provided by containers to provide internal security, and later,
+we discuss how efficient these solutions are.
+Further, we discuss external security, which is security provided by
+the Linux kernel, to protect the host from containers, or containers from
+containers. External security includes Linux
+capabilities and LSM framework. Linux capabilities can be
+disabled/enabled as needed, and LSM framework is used
+to define various security profiles for containers.
+Inspite of all these efforts, it is clear that there is
+still a need of security enhancement in containers.
