@@ -1,4 +1,5 @@
 \chapter{Security Review of Containers}\label{chapter2}	
+
 In spite of the popularity of containers, there are various security
 concerns as well. Here, we focus our investigation on the security
 of Singularity and Docker containers because of three reasons.
@@ -356,6 +357,183 @@ AppArmor profile provide full access of network system and
 capabilities to Docker containers.
 To improve the security of the host, a potential solution is to write
 container-specific profiles.
+
+\subsubsection{Related Work}
+
+The existing research work on containers focuses mainly on the security of containers.
+This focus is justified by the fact that containers expose the host's resources
+(e.g., file system/ IPC) to the guest system. This feature raises a confidentiality
+threat for the applications running on the same host. 
+
+~\cite{reshetova2014security} analyzed security of various OS-level virtualization technologies.
+according to a set of security requirements. Based on these requirements, they analyzed
+security of FreeBSD Jails, Linux-VServer,
+Solaris-Zones, OpenVZ, LxC, and Cells/Cellrox.
+
+Thanh Bui in~\cite{bui2015analysis} used these security requirements to analyze the security of Docker specifically.
+The Author selected Docker for analysis due to its popularity as a container-based approach.
+In this study, two main areas of security are considered for analysis:
+(1) Internal security of Docker, which is analysed according to the
+set of security requirements given by Reshtova et. al. in~\cite{reshetova2014security}.
+(2) How Docker interacts with the external security features provided
+by Linux Kernel such as SELinux and AppArmor.
+
+A study in 2015 by Gummaraju et al.
+states that over 30\% of official images in Docker Hub contain high priority
+security vulnerabilities~\cite{gummaraju2015over}, whereas this percentage rises 
+to ~40\% for community images, which are pushed to Docker Hub by Docker users 
+and are not identified by any authority.
+At the time of this study, there were ~75 official repositories containing 
+~960 unique images and ~95,000 general repositories having hundreds of thousands 
+of unique images on Docker Hub.
+This study took all official images as well as randomly selected ~1700 general images for analysis.
+
+Combe et al. in~\cite{combe2016docker} and ~\cite{martin2018docker} investigated the security of
+Docker ecosystem. In this study, authors primarily reviewed security
+from three main factors:
+
+For security it relies on three components i.e 
+isolation, host hardening and network security. For isolation 
+docker relies on Linux kernel features like namespaces, cgroups, 
+hardening and capabilities. The default isolation configuration 
+is strict, only flaw is the shared network bridge which is 
+vulnerable to ARP attacks between containers on same host. 
+There are options for increasing and lowering security levels 
+while launching containers and while starting the docker daemon 
+which is serious security concern. Host hardening is done by 
+loading profiles in containers for e.g SELinux and AppArmor 
+profile but the problem is these profiles are generic and protect 
+host from containers but not containers from containers. So, writing 
+container specific profiles can address this issue. Docker uses network 
+to remotely control docker daemon and in the image-distribution process. 
+While downloading images from docker hub the connection is made over TLS 
+and remote repository is verified with hash. Moreover, starting from version 
+1.8 developers can sign images while pushing them to the docker hub using 
+timestamps for expiration and preventing replay attacks but the signing keys 
+are shared among every entity needing to issue an image which is an issue. 
+The docker daemon is remotely controlled through UNIX socket. Access to this 
+socket will give attacker the full freedom to pull and run containers in 
+privileged mode giving him root access. So, therefore connection should be 
+TLS secured.
+Authors further discussed three use cases of docker. First is recommended 
+use-case given by docker official suggesting micro-service approach. Second 
+is wide-spread use where developers use docker as way of delivering virtual 
+environment. So, embedding more software than the designed payload of containers 
+makes container management very complex and increases attack surfaces. Attacks 
+like privilege escalation can happen because of the increased communication 
+channels between co-located containers and host. Last one is CaaS (cloud as a 
+service). For security, docker swarm uses swarm mode PKI. Each time a new node 
+joins swarm, the manager nodes issues certificate to the node.
+Authors then discussed two categories of adversary model i.e direct adversary 
+targeting production environment directly and indirect adversary who leverages 
+docker ecosystem to reach production environment. Authors identified five 
+vulnerability categories.
+
+\textbf{Insecure configuration:} Use of options given at the starting of docker daemon 
+and while launching of the container makes it insecure. For mitigation of these 
+attacks the center for internet security realized a docker benchmark providing 
+two list of options to use and not to use while running containers as isolated 
+applications.
+
+\textbf{Vulnerabilities in image distribution process:} Vulnerabilities include storing, 
+processing potentially untrusted code performed by docker daemon. Code can be 
+tampered during transfer or at the source. If attacker compromised some part of 
+network, downloading his image on host and it can fill whole storage of host 
+causing DoS attack. Other possible attacks are code injection or replay attacks. 
+For mitigation of these attacks Docker introduced content trust which allowed 
+signing images before pushing to docker hub. But the problem is that this content 
+trust can be disabled and thus disabling image signature check. Another issue is 
+with automated build and webhooks where compromised github account can lead to the 
+execution of malicious code within 5 minutes and 30 seconds. Content trust provides 
+environment where single entity is trusted but in this case trust is divided among 
+several external entities.
+
+\textbf{Vulnerabilities inside images:} According to the reports 36\% of the official images 
+contain high-priority CVE and 64\% official images high to medium priority CVE. Docker 
+introduced Docker security scanning which traverses each layer of image and reports 
+any vulnerabilities. But this solution is limited to private repositories only due to 
+its cost and it can take 1 to 24 hours for the scan.
+
+\textbf{Vulnerabilities directly linked to Docker:} There is room for improvement for security
+profiles making them container specific instead of generic profiles giving full access 
+to network system, file system of host.
+
+\textbf{Vulnerabilities of Linux kernel:} As containers are sharing kernel with the host, having
+root privileges inside the container can make attacker break out of the container and 
+attack host.
+
+Shu et al. in~\cite{Shu2017} studied the state of security
+vulnerabilities in Docker Hub images.
+Authors built DIVA (Docker Image Vulnerability Analysis) framework for analyzing 
+the vulnerabilities in the images of docker Hub. This process involved discovering 
+the community images, downloading and extracting the meta data and finally analyzing 
+the vulnerabilities in the images. The community images were discovered using 
+keyboard search. After getting the list of images, they adopted stream based 
+parallel image analysis where different subsets of images discovered were 
+downloaded on different host and analyzed their vulnerability using Clair, 
+which is open source tool from coreOS for identifying vulnerabilities in 
+images. From the metadata received after extraction process Clair 
+found the insecure packages in the images by comparing with the CVE and similar 
+databases. Clair report include details like time of analysis, vulnerability id, 
+severity ranking, description of CVE, associated packages and layer id of the 
+vulnerable image. Their dataset consisted of total 86,066 repositories out of 
+which 98 were official repositories having total of 356,218 images in both 
+repositories. With the DIVA framework they found out that there are 180 
+vulnerabilities on average in both official and community images. There 
+exists at least one type of severe vulnerability in both official and 
+community images. 50\% of both official and community images have not 
+been updated since last 200 days which are intuitively more likely 
+to contain more vulnerabilities.
+Then, the authors did the inter-image dependency analysis and found 
+that vulnerability propagates from the parent image to the child image. 
+Child image inherits 80 or more vulnerabilities on average from parent 
+image and child image frequently introduces new vulnerabilities because 
+maintainer don’t apply updates while installing new software.  
+They generated a directed graph G = <V,E> where V is the set of vertices 
+representing layer IDs and E is the set of edges representing child and 
+parent relationship. The meta data extraction process gave details like 
+image id, image name, last updated time, layer id and commands used to 
+build the image. Inter-layer relationships were found from JSON configuration 
+file of images. Authors performed metadata extraction using virtual computing 
+lab where they reserved 100 virtual machines having 4GB memory and 40GB storage. 
+Further, authors found out that 5 out of 98 official repositories and 10,435 out 
+of 85,968 community repositories don’t have :latest tag.  From the Clair report 
+authors investigated the packages that cause vulnerabilities in images more 
+frequently and found that glibc package is the most frequent offender causing 
+vulnerabilities in 80\% of the images. Packages like util-linux, shadow, perl etc. 
+also appear in each category of vulnerability. So, authors suggested that if 
+these packages are targeted specifically then security of docker hub ecosystem 
+can be improved.
+
+In 2018, Martin et al. in~\cite{martin2018docker} performed a
+vulnerability-oriented analysis of the Docker ecosystem.
+
+In 2019, Zerouali et al. studied that
+outdated packages lead to bugs and severity vulnerabilities in Docker
+images~\cite{zerouali2019relation}.
+
+In 2019, Sultan et al. in~\cite{sultan2019container} did a comprehensive
+survey on container's security and identified main security threats
+due to containers, images, registeries, orchestration, and host OS.
+Primarily, this study proposed four use cases to explain security
+requirements within the host-container level.
+These use cases include: 
+
+(1) Protecting container from applications inside it
+(2) protecting one container from another container (3) protecting the host
+from containers (4) protecting the container from the malicious host 
+
+%Previous studies evaluated
+%the security of Docker engine ~\cite{martin2018docker, sultan2019container, combe2016docker, bui2015analysis}.
+%Other work studied security vulnerabilities in Docker images. 
+%
+%Shu et al. show that both official and community images
+%contain more than 180 vulnerabilities on an average~\cite{Shu2017}.
+%
+%Zerouali et al. studied that
+%outdated packages lead to bugs and severity vulnerabilities in Docker
+%images~\cite{zerouali2019relation}.
+
 
 \section{Conclusion}
 
