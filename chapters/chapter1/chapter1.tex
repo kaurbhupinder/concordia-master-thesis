@@ -13,7 +13,7 @@ of a process and its children processes. A chrooted process cannot access files
 outside the designated directory.
 As the time passed, this virtualization got evolved and took different forms of
 FreeBSD jails, Linux VServer project, and Solaris containers. However, in 2008,
-with the introduction of Linux containers (LXC) OS-level virtualization reached
+with the introduction of Linux containers (LXC), OS-level virtualization reached
 to an another level of popularity. LXC gained advantage over
 other Linux-based projects due to the integration of virtualization features into
 the upstream Linux kernel, which removed the need of applying patches to the
@@ -31,7 +31,7 @@ providing isolated environment. Docker allows software engineers to develop an
 application only once, on one system, and then use it on other systems without
 much effort. With the help of Docker, developers pack the application with
 all its dependencies, libraries, and tools, which can be run on any Linux server
-later. Docker containers share boot file-system and kernel with the host, which
+later. However, Docker containers share boot file-system and kernel with the host, which
 raises security concerns. Another issue is that Docker is not supported by
 traditional high-performance computing (HPC) resources. This is mainly due to the
 default configuration of Docker, which runs containers as root. Consequently, it
@@ -88,7 +88,7 @@ new image through Docker webhooks~\cite{martin2018docker,dockerdoc2__2019}.
 Singularity was introduced in 2016. It offers mobility of compute by
 facilitating portable environments through a single image file, which
 makes Singularity containers different from Docker's layered containers.
-Once Singularity image is created, it is hashed by using SHA256 hashing.
+Once a Singularity image is created, it is hashed by using SHA256 hashing.
 Hence, it cannot be changed once it is created, consequently, it can be
 used for reproducing the results of scientific experiments. Singularity
 was introduced with the main goal of providing support for multi-user

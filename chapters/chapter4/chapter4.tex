@@ -8,7 +8,7 @@ images used for neuroimaging analyses, and it is likely to impact other
 scientific disciplines as well. As shown in our results, it is common for container images
 to hold hundreds of vulnerabilities, including several of critical
 severity. Container images are impacted regardless of the type of analyses
-that they support, and the main OS distributions Ubuntu, Debian and CentOS
+that they support, and the main OS distributions, such as Ubuntu, Debian, and CentOS
 are all affected. This issue can be addressed by the application software
 developers by: (1) minifying container images, by using
 lightweight OS distributions and reducing software dependencies,
@@ -27,7 +27,7 @@ starting with the HPC centers. Instead, we advocate a more systematic
 analysis of the numerical schemes involved in data analyses, which, coupled
 with software testing, would make the analyses robust to software updates.
 As a first step, the packages impacting the analyses could be specifically
-identified and the others updated, which would largely remove
+identified and the remaining packages could be updated, which would largely remove
 vulnerabilities.
 
 Ultimately, software updates should even occur at runtime rather than when
@@ -37,14 +37,14 @@ few weeks when a release becomes available, which may not be compatible
 with the frequency of required security updates. In fact, there is no
 definite reason for the application software release cycle to be
 synchronized with security updates, and security updates shouldn't be
-dependent on application software developers. Instead, we think it would be
+dependent on application software developers. Instead, we believe it would be
 relevant for analytics engines to (1) systematically apply security updates
 when containers start, and (2) run software tests provided by application
 developers, including numerical tests, before running analyses.
 
 Implementing such a workflow, however, requires a long-term endeavour to
 evaluate broadly the stability of data analysis pipelines, and to develop
-the associated software tests. For the shorter term, we identified the
+the associated software tests. For the shorter term, we identify the
 following recommendations for application developers to reduce the number
 of security vulnerabilities in container images:
 
@@ -86,7 +86,7 @@ distributions such as \href{http://neuro.debian.net}{NeuroDebian} or
 \href{https://docs.fedoraproject.org/en-US/neurofedora/overview/}{NeuroFedora}
 in neuroimaging are useful in this respect.
 \item \emph{Minify container images.} The automated minification
-process that we used in our study is unwieldy for a routine use, as it
+process that we use in our study is unwieldy for a routine use, as it
 requires capturing execution traces with ReproZip to reconstruct the graph
 of package dependencies required for the analysis. In practice, it would be
 more practical for software developers to identify and remove unnecessary
@@ -95,20 +95,27 @@ application.
 \item \emph{Run image scanners during continuous integration.} Scanning
 container images can be a cumbersome process that
 could be asynchronously executed during continuous integration (CI),
-through tools such as Travis CI or Circle CI. Including security scans in
+through tools such as \href{https://travis-ci.org/}{Travis CI} or \href{https://circleci.com/}{CircleCI}. Including security scans in
 CI also allows developers to identify vulnerabilities quickly,
 before new software versions are released.
 \end{enumerate}
 
 \section{Contributions}
+
 All the collected
-data are available in our GitHub repository at
+data and the code used in this study are available in our GitHub repository at
 \url{https://github.com/big-data-lab-team/container-vulnerabilities-paper}
-with a Jupyter notebook to regenerate the figures. We believe that this
+with a Jupyter notebook to regenerate the figures.
+We believe that this
 study is the first of its kind to analyze the container images to see
 the effect of \textit{image update} and \textit{image minification}.
 We provide recommendations on how to build container
-images with a reduced amount of vulnerabilities.
+images with a reduced amount of vulnerabilities. This work has been
+submitted to the GigaScience journal and currently, it is under
+minor revisions. Also, our work is referenced in the Dark Reading
+article at \href{https://www.darkreading.com/application-security/containers-for-data-analysis-are-rife-with-vulnerabilities/d/d-id/1339372}
+{https://www.darkreading.com/application-security/containers-for-data-analysis-are-rife-with-vulnerabilities/d/d-id/1339372}
+
 \section{Future Work}
 
 Specific attacks that would exploit vulnerabilities in container images 
@@ -124,12 +131,12 @@ and data-based attacks, exploiting vulnerabilities through the processing
 of malicious data injected through third-party systems.
 
 Several types of escalation attacks could be envisaged once remote
-attackers gain access to the container, in particular related to (1) using
-the resources allocated to the container for malicious use, such as storing
-data in the file system or using CPU cycles, resulting in denial of service
+attackers gain access to the container. In particular, attacks related
+to (1) using the resources allocated to the container for malicious use resulting in denial of service
 for the user running the container and possibly for other HPC users, and
 (2) attacking a host network service, for instance a scheduler or a file
-system daemon. Exploits in the host kernel to break out of the container
-are always possible but unlikely assuming that the host system is
+system daemon. 
+Exploits in the host kernel to break out of the container
+are always possible but unlikely, assuming that the host system is
 maintained by professional system administrators.
 
