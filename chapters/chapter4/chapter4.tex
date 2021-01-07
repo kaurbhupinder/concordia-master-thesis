@@ -55,14 +55,27 @@ For instance, it can be tempting to add a complete toolbox to implement a
 relatively minor operation in a data analysis pipeline, such as a data
 format conversion, while the same functionality might be available in the
 existing dependencies of the pipeline, albeit in a less convenient way.
-\item \emph{Use lightweight base images such as Alpine Linux}. Base
-images often come with packages that are useful in personal computers or
-servers, but not in containers dedicated to a specific data analysis. In
-addition, lightweight distributions define packages with a fine
-granularity, allowing developers to avoid installing unnecessary
-dependencies. For instance, the compressed size of the Alpine Linux base
-image on DockerHub is only 2.7~MB while that of the Ubuntu base image is
-27~MB.
+%\item \emph{Use lightweight base images such as Alpine Linux}. Base
+%images often come with packages that are useful in personal computers or
+%servers, but not in containers dedicated to a specific data analysis. In
+%addition, lightweight distributions define packages with a fine
+%granularity, allowing developers to avoid installing unnecessary
+%dependencies. For instance, the compressed size of the Alpine Linux base
+%image on DockerHub is only 2.7~MB while that of the Ubuntu base image is
+%27~MB.
+\item \emph{Use base image wisely.} Choosing a base image wisely in containers 
+helps to reduce security vulnerabilities.
+For example, if the scientific data analysis in the image does not require a lot of additional
+packages to be installed in the image, choosing a lightweight base image like
+Alpine Linux would be a good choice. It is also great to use Alpine as a base image
+when all packages required in the image are available in the Alpine repository. 
+However, some scientific data analyses
+require additional packages to be installed in the image and if they are not
+present in the Alpine repository, developers have to build on their own.
+Packages that are not installed through the package manager remain unscanned. 
+Hence, vulnerabilities in those packages remain
+undetected. Therefore, in such cases, base images that have rich
+package repository are useful.
 \item \emph{Use OS releases with long-term support.} Security updates are
 not provided for OS distributions that reached end of life. When a given
 release of a data analysis pipeline is expected to be used over a long
@@ -103,16 +116,16 @@ before new software versions are released.
 \section{Contributions}
 
 All the collected
-data and the code used in this study are available in our GitHub repository at
+data in this study are available in our GitHub repository at
 \url{https://github.com/big-data-lab-team/container-vulnerabilities-paper}
 with a Jupyter notebook to regenerate the figures.
 We believe that this
 study is the first of its kind to analyze the container images to see
 the effect of \textit{image update} and \textit{image minification}.
 We provide recommendations on how to build container
-images with a reduced amount of vulnerabilities. This work has been
-submitted to the GigaScience journal and currently, it is under
-minor revisions. Also, our work is referenced in the Dark Reading
+images with a reduced amount of vulnerabilities. This work is
+submitted and accepted in the GigaScience journal with pending
+minor revisions. Also, this work is referenced in the Dark Reading
 article at \href{https://www.darkreading.com/application-security/containers-for-data-analysis-are-rife-with-vulnerabilities/d/d-id/1339372}
 {https://www.darkreading.com/application-security/containers-for-data-analysis-are-rife-with-vulnerabilities/d/d-id/1339372}
 

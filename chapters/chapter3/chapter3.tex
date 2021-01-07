@@ -292,7 +292,13 @@ of high severity
 (\href{https://www.first.org/cvss/specification-document}{CVSS} score
 \(<=\)
 7.0) and a few of them are of critical severity (CVSS \(>=\) 9.0).
-Figure~\ref{fig:anchore} shows these details. Remote
+These vulnerabilities exist either in installed applications
+of the image or their dependencies (direct or transitive).
+Additionally, they are of different software vulnerability types, e.g.,
+buffer overflow, injection flaws, leakage of confidential information,
+issues with libraries and dependencies, etc. 
+Figure~\ref{fig:anchore} shows the number of vulnerabilities
+detected in each image. Remote
 attackers could possibly exploit these vulnerabilities to execute
 arbitrary code in the container, by crafting responses to specific network
 requests. Images based on the Alpine distribution
@@ -779,7 +785,7 @@ captures the list of files involved in the analysis, through system call
 interception, then retrieves the list of associated software packages, by
 querying the package manager. We extend this list with a passlist of
 packages required for the system to function, such as \texttt{coreutils}
-and \texttt{bash}, and with all the dependencies of the required packages,
+and \texttt{bash}, and with all the direct and transitive dependencies of the required packages,
 retrieved using
 \href{http://manpages.ubuntu.com/manpages/xenial/man1/debtree.1.html}{Debtree}.
 \href{https://linux.die.net/man/1/repoquery}{Repoquery} could be used in

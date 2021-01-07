@@ -16,7 +16,6 @@ by Singularity and Docker containers, and list their security implications.
 For this study, we categorize security into two broad categories: internal
 security provided by containers, and external security
 provided by the Linux operating system.
-
 \section{Related Work}
 
 The existing research work on containers focuses mainly on the security of containers.
@@ -352,7 +351,6 @@ Conversely, in default configuration of Singularity, all host devices
 are visible inside the container because the user is the same inside and
 outside the container.
 
-
 \subsection{Inter-Process Communication (IPC) Isolation}
 
 IPC is a set of objects through which processes communicate with
@@ -365,7 +363,6 @@ cannot read or write IPC resources of another IPC namespace.
 The default configuration of Singularity does not provide IPC isolation.
 
 \subsection{Network Isolation}
-
 
 Isolation of container's network is very important in order to prevent
 network-based attacks, such as address resolution protocol (ARP)
@@ -437,7 +434,6 @@ malicious code was put in production in a very short time, i.e. within 5 minutes
 an environment where a single entity is trusted but in this
 case, trust is divided among several external entities.
 
-
 \subsection{Limiting of Resources}
 
 A DoS attack occurs when intended users are not able to use
@@ -491,7 +487,7 @@ modules are officially integrated with Linux kernel which includes SELinux,
 AppArmor, and Seccomp. Out of these three, only the first two are
 supported by Docker. Docker only integrates with Seccomp if LXC are used.
 Below, we provide the details of these host hardening techniques.
-
+\addtocounter{table}{-1}
 \subsection{Linux Capabilities}
 
 According to the official documentation of Linux~\cite{man7},
@@ -516,7 +512,7 @@ capabilities that are disabled in Docker containers.
 \newline
 \begin{center}
 \tabulinesep=1.2mm
-\begin{tabu} to \textwidth { | X[l] | X[l] | }
+\begin{longtable} {| p{.50\textwidth} | p{.50\textwidth} |}
 \hline
 	\textbf{Capability} & \textbf{Description} \\
 \hline
@@ -550,7 +546,7 @@ CAP\_NET\_ADMIN & Configure the network \\
  \hline
 CAP\_SYS\_ADMIN & Catch all \\
  \hline
-\end{tabu}
+\end{longtable}
 \captionof{table}{Some disabled capabilities in Docker containers~\cite{walsh2}.}
 \label{tab:capabilities}
 \end{center}
@@ -609,7 +605,6 @@ important files of the host such as \textit{/sys/fs/cgroups/}
 and \textit{/sys/kernel/security/} remain protected from
 containers.
 
-
 \subsubsection{Limitations of LSMs}
 
 Security provided by these modules is limited due to
@@ -622,10 +617,7 @@ AppArmor profile provide full access of network system and
 capabilities to Docker containers.
 To improve the security of the host, a potential solution is to write
 container-specific profiles.
-
-
 \section{Conclusion}
-
 In this chapter, we examine various security threats that
 containers are prone to. We focus our investigation on the
 security of Docker and Singularity containers because of their popularity.

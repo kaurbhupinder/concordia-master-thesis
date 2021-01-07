@@ -3,7 +3,7 @@
 \usepackage{xcolor}
 \include{config}
 \include{constants}
-
+\usepackage[withpage]{acronym}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -14,6 +14,40 @@
 %% Body of Thesis goes here.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %To inlcude new chapter add "\include{chapters/chapter-no/chapter-no.tex"
+\chapter*{List of Acronyms}
+\begin{acronym}
+ \acro{OS}{Operating System}
+ \acro{LXC}{Linux Containers}
+ \acro{CPU}{Central Processing Unit}
+ \acro{HPC}{High Performing Computing}
+ \acro{HTTP}{Hyper Text Transfer Protocol}
+ \acro{IPC}{Inter Process Communication}
+ \acro{PID}{Process Identifier}
+ \acro{CVE}{Common Vulnerabilities and Exposures}
+ \acro{TLS}{Transport Layer Security}
+ \acro{ARP}{Address Resolution Protocol}
+ \acro{DoS}{Denial-of-Service}
+ \acro{MitM}{Man-in-the-Middle}
+ \acro{IP}{Internet Protocol}
+ \acro{TCP}{Transmission Control Protocol}
+ \acro{I/O}{Input/Output}
+ \acro{MAC}{Media Access Control}
+ \acro{LSM}{Linux Security Module}
+ \acro{UID}{User ID}
+ \acro{TE}{Type Enforcement}
+ \acro{MCS}{Multi-Category Security}
+ \acro{MLS}{Multi-Level Security}
+ \acro{BIDS}{Brain Imaging Data Structure}
+ \acro{OVAL}{Open Vulnerability and Assessment Language}
+ \acro{RHSA}{Red Hat Security Advisory}
+ \acro{NVD}{National Vulnerability database}
+ \acro{CVSS}{Common Vulnerability Scoring System}
+ \acro{LTS}{Long Term Support}
+ \acro{ESM}{Extended Security Maintenance}
+ \acro{EOL}{End-Of-Life}
+ \acro{DNE}{Does Not Exist}
+ \acro{CI}{Continuous Integration}
+\end{acronym}
 \include{chapters/chapter1/chapter1}
 \include{chapters/chapter2/chapter2}
 \include{chapters/chapter3/chapter3}
